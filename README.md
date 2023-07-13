@@ -11,7 +11,7 @@ The goal is to retrieve information on [Solace PubSub+ Cloud](https://solace.com
 
 Plugins are what Steampipe uses to define the schema for remote resources. The Solace plugin for Steampipe defines which tables are available and performs API calls to query those resources.
 
-3. Run a query
+Run a query
 
 ```sql
 select
