@@ -2,23 +2,14 @@
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-# Solace plugin for Steampipe
+# Solace PubSub+ Cloud + Steampipe
 
 ## Overview
-The goal is to retrieve information on Solace Cloud resources via SQL queries using Solace plugin for Steampipe.
+The goal is to retrieve information on [Solace PubSub+ Cloud](https://solace.com/products/platform/cloud/) resources via SQL queries using Solace plugin for Steampipe.
 
-Steampipe is an open-source framework for querying, analyzing, and working with data from various sources. It provides a unified and declarative way to interact with disparate data sources, such as databases, cloud providers, and APIs, using SQL syntax.
+[Steampipe](https://steampipe.io) is an open-source framework for querying, analyzing, and working with data from various sources. It provides a unified and declarative way to interact with disparate data sources, such as databases, cloud providers, and APIs, using SQL syntax.
 
 Plugins are what Steampipe uses to define the schema for remote resources. The Solace plugin for Steampipe defines which tables are available and performs API calls to query those resources.
-
-## Getting started quickly
-1. Install the plugin with [Steampipe](https://steampipe.io/):
-```shell
-steampipe plugin install solacelabs/solace
-```
-2. Configure your credentials and config file.
-
-Configure your [credentials](https://hub.steampipe.io/plugins/solacelabs/solace#credentials) and [config file](https://hub.steampipe.io/plugins/solacelabs/solace/make#configuration).
 
 3. Run a query
 
@@ -47,7 +38,18 @@ from
 
 ## Documentation
 
-Details on the plugin and supported tables can be found [here](docs/index.md)
+- **[Table definitions & examples →](docs/index.md)**
+
+
+## Getting started quickly
+1. Install the plugin with [Steampipe](https://steampipe.io/):
+```shell
+steampipe plugin install solacelabs/solace
+```
+2. Configure your credentials and config file.
+
+Configure your [credentials](https://hub.steampipe.io/plugins/solacelabs/solace#credentials) and [config file](https://hub.steampipe.io/plugins/solacelabs/solace/make#configuration).
+
 ## Resources
 This is not an officially supported Solace product.
 

@@ -45,7 +45,7 @@ from
 
 ## Documentation
 
-- **[Table definitions & examples →](/plugins/solacelabs/solace/tables)**
+- **[Table definitions & examples →](tables/index.md)**
 
 ## Get started
 
@@ -65,7 +65,9 @@ You can find more details on how to generate an API Token here - [Get your API t
 
 ### Configuration
 
-Installing the latest Solace PubSub+ Cloud plugin will create a config file (`~/.steampipe/config/solace.spc`) with a single connection named `solace`:
+Installing the latest Solace PubSub+ Cloud plugin will create a config file (`~/.steampipe/config/solace.spc`) with a single connection named `solace`.
+
+Update the `api_token` value with the generated token (within quotes).
 
 ```hcl
 connection "solace" {
