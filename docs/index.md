@@ -2,11 +2,11 @@
 organization: Solace
 category: ["saas"]
 icon_url: "docs/images/solace.svg"
-brand_color: "#6D01CC"
-display_name: "Solace"
-short_name: "solace"
-description: "Solace plugin for exploring your Solace Cloud in depth."
-og_description: "Query Solace Cloud with SQL! Open source CLI. No DB required."
+brand_color: "#00c895"
+display_name: "Solace PubSub+ Cloud"
+short_name: "Solace"
+description: "Solace PubSub+ Cloud plugin for exploring your Solace Cloud configuration in depth."
+og_description: "Query Solace PubSub+ Cloud with SQL! Open source CLI. No DB required."
 og_image: "docs/images/solace-social-graphic.png"
 ---
 
