@@ -21,32 +21,32 @@ func tableDatacenter(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "datacenterType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "provider", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "operState", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "available", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "supportedServiceClasses", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "cloudAgentVersion", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "k8sServiceType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "numSupportedPrivateEndpoints", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "numSupportedPublicEndpoints", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "organizationId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "location", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "spoolScaleUpCapabilityInfo", Type: proto.ColumnType_JSON, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "datacenter_type", Type: proto.ColumnType_STRING, Description: "Datacenter type"},
+			{Name: "provider", Type: proto.ColumnType_STRING, Description: "Provider"},
+			{Name: "oper_state", Type: proto.ColumnType_STRING, Description: "Operational State"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_STRING, Description: "Created Time"},
+			{Name: "updated_by", Type: proto.ColumnType_STRING, Description: "Updated By"},
+			{Name: "updated_time", Type: proto.ColumnType_STRING, Description: "Updated Time"},
+			{Name: "available", Type: proto.ColumnType_STRING, Description: "Available?"},
+			{Name: "supported_service_classes", Type: proto.ColumnType_STRING, Description: "Supported Service Classes"},
+			{Name: "cloud_agent_version", Type: proto.ColumnType_STRING, Description: "Cloud Agent Version"},
+			{Name: "k8s_service_type", Type: proto.ColumnType_STRING, Description: "K8s Service Type"},
+			{Name: "num_supported_private_endpoints", Type: proto.ColumnType_STRING, Description: "Number of Supported Private Endpoints"},
+			{Name: "num_supported_public_endpoints", Type: proto.ColumnType_STRING, Description: "Number of Supported Public Endpoints"},
+			{Name: "organization_id", Type: proto.ColumnType_STRING, Description: "Organization Id"},
+			{Name: "location", Type: proto.ColumnType_JSON, Description: "Location"},
+			{Name: "spool_scale_up_capability_info", Type: proto.ColumnType_JSON, Description: "Spool Scale Up Capability Info"},
 		},
 	}
 }
 
 func listDatacenters(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listDatacenters", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_datacenter.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_datacenter.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -58,14 +58,14 @@ func listDatacenters(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 	count := 0
 	for pagesLeft {
 		applications, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_datacenter.listDatacenters", "applications", applications)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_datacenter.listDatacenters", "applications", applications)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_datacenter.listDatacenters", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -82,16 +82,16 @@ func listDatacenters(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 }
 
 func getDatacenter(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_datacenter.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_datacenter.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_datacenter.getDatacenter - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_datacenter.getDatacenter - ID", id)
 
 	datacenter, err := c.GetDatacenter(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_datacenter.getDatacenter", "datacenter", datacenter)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_datacenter.getDatacenter", "datacenter", datacenter)
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_datacenter.getDatacenter", "request_error", err)
 		return nil, err

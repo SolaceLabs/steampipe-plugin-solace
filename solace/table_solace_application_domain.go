@@ -21,24 +21,24 @@ func tableApplicationDomain(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "uniqueTopicAddressEnforcementEnabled", Type: proto.ColumnType_BOOL, Description: ""},
-			{Name: "topicDomainEnforcementEnabled", Type: proto.ColumnType_BOOL, Description: ""},
-			{Name: "stats", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "customAttributes", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Application Domain Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Application Domain Name"},
+			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description"},
+			{Name: "unique_topic_address_enforcement_enabled", Type: proto.ColumnType_BOOL, Description: "Unique Topic Enforcement enabled?"},
+			{Name: "topic_domain_enforcement_enabled", Type: proto.ColumnType_BOOL, Description: "Topic Domain Enforcement Enabled?"},
+			{Name: "stats", Type: proto.ColumnType_JSON, Description: "Stats"},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Changed By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Updated Time"},
 		},
 	}
 }
 
 func listApplicationDomains(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listApplicationDomains", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_application_domain.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_application_domain.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -50,14 +50,14 @@ func listApplicationDomains(ctx context.Context, d *plugin.QueryData, h *plugin.
 	count := 0
 	for pagesLeft {
 		applicationDomains, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_application_domain.listApplicationDomains", "applicationDomains", applicationDomains)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_application_domain.listApplicationDomains", "applicationDomains", applicationDomains)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_application_domain.listApplicationDomains", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -74,16 +74,16 @@ func listApplicationDomains(ctx context.Context, d *plugin.QueryData, h *plugin.
 }
 
 func getApplicationDomain(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_application_domain.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_application_domain.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_application_domain.getApplicationDomain - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_application_domain.getApplicationDomain - ID", id)
 
 	applicationDomain, err := c.GetApplicationDomain(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_application_domain.getApplicationDomain", "applicationDomain", applicationDomain)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_application_domain.getApplicationDomain", "applicationDomain", applicationDomain)
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_application_domain.getApplicationDomain", "request_error", err)
 		return nil, err

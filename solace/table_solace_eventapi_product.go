@@ -21,25 +21,25 @@ func tableEventApiProduct(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "applicationDomainId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "shared", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "numberOfVersions", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "brokerType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "customAttributes", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "application_domain_id", Type: proto.ColumnType_STRING, Description: "Application Domain Id"},
+			{Name: "shared", Type: proto.ColumnType_STRING, Description: "Shared?"},
+			{Name: "number_of_versions", Type: proto.ColumnType_STRING, Description: "Number of Versions"},
+			{Name: "broker_type", Type: proto.ColumnType_STRING, Description: "Broker Type"},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listEventApiProducts(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listEventApiProducts", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApiProduct.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApiProduct.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -51,14 +51,14 @@ func listEventApiProducts(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	count := 0
 	for pagesLeft {
 		eventApiProducts, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_eventApiProduct.listEventApiProducts", "eventApiProducts", eventApiProducts)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_eventApiProduct.listEventApiProducts", "eventApiProducts", eventApiProducts)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_eventApiProduct.listEventApiProducts", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -75,16 +75,16 @@ func listEventApiProducts(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 }
 
 func getEventApiProduct(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApiProduct.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApiProduct.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApiProduct.getEventApiProduct - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApiProduct.getEventApiProduct - ID", id)
 
 	eventApiProduct, err := c.GetEventApiProduct(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApiProduct.getEventApiProduct", "eventApiProduct", fmt.Sprintf("%+v", eventApiProduct))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApiProduct.getEventApiProduct", "eventApiProduct", fmt.Sprintf("%+v", eventApiProduct))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_eventApiProduct.getEventApiProduct", "request_error", err)
 		return nil, err

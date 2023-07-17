@@ -21,27 +21,27 @@ func tableMessagingService(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "eventMeshId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "contextId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "runtimeAgentId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "solaceCloudMessagingServiceId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "messagingServiceType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "messagingServiceConnections", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "eventManagementAgentId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "event_mesh_id", Type: proto.ColumnType_STRING, Description: "Event Mesh Id"},
+			{Name: "context_id", Type: proto.ColumnType_STRING, Description: "Context Id"},
+			{Name: "runtime_agent_id", Type: proto.ColumnType_STRING, Description: "Runtime Agent Id"},
+			{Name: "solace_cloud_messaging_service_id", Type: proto.ColumnType_STRING, Description: "Solace Cloud Messaging Service Id"},
+			{Name: "messaging_service_type", Type: proto.ColumnType_STRING, Description: "Messaging Service Type"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "messaging_service_connections", Type: proto.ColumnType_JSON, Description: "Messaging Service Connections"},
+			{Name: "event_management_agent_id", Type: proto.ColumnType_STRING, Description: "Event Management Agent Id"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listMessagingServices(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listMessagingServices", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_messagingService.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_messagingService.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -53,14 +53,14 @@ func listMessagingServices(ctx context.Context, d *plugin.QueryData, h *plugin.H
 	count := 0
 	for pagesLeft {
 		messagingServices, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_messagingService.listMessagingServices", "messagingServices", messagingServices)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_messagingService.listMessagingServices", "messagingServices", messagingServices)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_messagingService.listMessagingServices", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -77,16 +77,16 @@ func listMessagingServices(ctx context.Context, d *plugin.QueryData, h *plugin.H
 }
 
 func getMessagingService(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_messagingService.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_messagingService.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_messagingService.getMessagingService - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_messagingService.getMessagingService - ID", id)
 
 	messagingService, err := c.GetMessagingService(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_messagingService.getMessagingService", "messagingService", fmt.Sprintf("%+v", messagingService))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_messagingService.getMessagingService", "messagingService", fmt.Sprintf("%+v", messagingService))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_messagingService.getMessagingService", "request_error", err)
 		return nil, err

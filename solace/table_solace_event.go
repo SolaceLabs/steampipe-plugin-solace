@@ -21,24 +21,24 @@ func tableEvent(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "shared", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "applicationDomainId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "numberOfVersions", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "customAttributes", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "shared", Type: proto.ColumnType_STRING, Description: "Shared?"},
+			{Name: "application_domain_id", Type: proto.ColumnType_STRING, Description: "Application Domain Id"},
+			{Name: "number_of_versions", Type: proto.ColumnType_STRING, Description: "Number of Versions"},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listEvents(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listEvents", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_event.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_event.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -50,14 +50,14 @@ func listEvents(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData)
 	count := 0
 	for pagesLeft {
 		events, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_event.listEvents", "events", events)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_event.listEvents", "events", events)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_event.listEvents", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -74,7 +74,7 @@ func listEvents(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData)
 }
 
 func getEvent(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_event.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_event.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
@@ -82,7 +82,7 @@ func getEvent(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 	id := d.EqualsQualString("id")
 
 	event, err := c.GetEvent(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_event.getEvent", "event", fmt.Sprintf("%+v", event))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_event.getEvent", "event", fmt.Sprintf("%+v", event))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_event.getEvent", "request_error", err)
 		return nil, err

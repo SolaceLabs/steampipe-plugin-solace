@@ -21,28 +21,28 @@ func tableEnumVersion(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "enumId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "version", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "displayName", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "values", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "referencedByEventVersionIds", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "referencedByTopicDomainIds", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "stateId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "customAttributes", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "enum_id", Type: proto.ColumnType_STRING, Description: "Enum Id"},
+			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description"},
+			{Name: "version", Type: proto.ColumnType_STRING, Description: "Version"},
+			{Name: "display_name", Type: proto.ColumnType_STRING, Description: "Display Name"},
+			{Name: "values", Type: proto.ColumnType_JSON, Description: "Values"},
+			{Name: "referenced_by_event_version_ids", Type: proto.ColumnType_STRING, Description: "Referenced by Event Version Ids"},
+			{Name: "referenced_by_topic_domain_ids", Type: proto.ColumnType_STRING, Description: "Referenced by Topic Domain Ids"},
+			{Name: "state_id", Type: proto.ColumnType_STRING, Description: "State Id"},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listEnumVersions(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listEnumVersions", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_enumVersion.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_enumVersion.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -54,14 +54,14 @@ func listEnumVersions(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 	count := 0
 	for pagesLeft {
 		enumVersions, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_enumVersion.listEnumVersions", "enumVersions", enumVersions)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_enumVersion.listEnumVersions", "enumVersions", enumVersions)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_enumVersion.listEnumVersions", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -78,16 +78,16 @@ func listEnumVersions(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 }
 
 func getEnumVersion(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_enumVersion.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_enumVersion.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_enumVersion.getEnumVersion - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_enumVersion.getEnumVersion - ID", id)
 
 	enumVersion, err := c.GetEnumVersion(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_enumVersion.getEnumVersion", "enumVersion", fmt.Sprintf("%+v", enumVersion))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_enumVersion.getEnumVersion", "enumVersion", fmt.Sprintf("%+v", enumVersion))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_enumVersion.getEnumVersion", "request_error", err)
 		return nil, err

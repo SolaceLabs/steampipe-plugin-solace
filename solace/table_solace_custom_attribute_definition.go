@@ -21,23 +21,23 @@ func tableCustomAttributeDefinition(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "valueType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "scope", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "associatedEntityTypes", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "associatedEntities", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "value_type", Type: proto.ColumnType_STRING, Description: "Value Type"},
+			{Name: "scope", Type: proto.ColumnType_STRING, Description: "Scope"},
+			{Name: "associated_entity_types", Type: proto.ColumnType_STRING, Description: "Associated Entity Types"},
+			{Name: "associated_entities", Type: proto.ColumnType_JSON, Description: "Associated Entities"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listCustomAttributeDefinitions(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listCustomAttributeDefinitions", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_customAttributeDefinition.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_customAttributeDefinition.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -49,14 +49,14 @@ func listCustomAttributeDefinitions(ctx context.Context, d *plugin.QueryData, h 
 	count := 0
 	for pagesLeft {
 		customAttributeDefinitions, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_customAttributeDefinition.listCustomAttributeDefinitions", "customAttributeDefinitions", customAttributeDefinitions)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_customAttributeDefinition.listCustomAttributeDefinitions", "customAttributeDefinitions", customAttributeDefinitions)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_customAttributeDefinition.listCustomAttributeDefinitions", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -73,16 +73,16 @@ func listCustomAttributeDefinitions(ctx context.Context, d *plugin.QueryData, h 
 }
 
 func getCustomAttributeDefinition(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_customAttributeDefinition.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_customAttributeDefinition.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_customAttributeDefinition.getCustomAttributeDefinition - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_customAttributeDefinition.getCustomAttributeDefinition - ID", id)
 
 	customAttributeDefinition, err := c.GetCustomAttributeDefinition(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_customAttributeDefinition.getCustomAttributeDefinition", "customAttributeDefinition", fmt.Sprintf("%+v", customAttributeDefinition))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_customAttributeDefinition.getCustomAttributeDefinition", "customAttributeDefinition", fmt.Sprintf("%+v", customAttributeDefinition))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_customAttributeDefinition.getCustomAttributeDefinition", "request_error", err)
 		return nil, err

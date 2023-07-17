@@ -21,26 +21,26 @@ func tableSchema(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "applicationDomainId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "shared", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "schemaType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "numberOfVersions", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "eventVersionRefCount", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "customAttributes", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "application_domain_id", Type: proto.ColumnType_STRING, Description: "Application Domain Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "shared", Type: proto.ColumnType_STRING, Description: "Shared?"},
+			{Name: "schema_type", Type: proto.ColumnType_STRING, Description: "Schema Type"},
+			{Name: "number_of_versions", Type: proto.ColumnType_STRING, Description: "Number of Versions"},
+			{Name: "event_version_ref_count", Type: proto.ColumnType_STRING, Description: "Event Version Ref Count"},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listSchemas(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listSchemas", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_schema.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_schema.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -52,14 +52,14 @@ func listSchemas(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 	count := 0
 	for pagesLeft {
 		schemas, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_schema.listSchemas", "schemas", schemas)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_schema.listSchemas", "schemas", schemas)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_schema.listSchemas", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -76,16 +76,16 @@ func listSchemas(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 }
 
 func getSchema(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_schema.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_schema.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_schema.getSchema - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_schema.getSchema - ID", id)
 
 	schema, err := c.GetSchema(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_schema.getSchema", "schema", fmt.Sprintf("%+v", schema))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_schema.getSchema", "schema", fmt.Sprintf("%+v", schema))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_schema.getSchema", "request_error", err)
 		return nil, err

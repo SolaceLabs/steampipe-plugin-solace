@@ -186,8 +186,8 @@ github.com/NYTimes/gziphandler v0.0.0-20170623195520-56545f4a5d46/go.mod h1:3wb0
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/PuerkitoBio/purell v1.0.0/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/urlesc v0.0.0-20160726150825-5bd2802263f2/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
-github.com/SolaceLabs/steampipe-solace-go-client-sdk v0.0.0-20230712154347-4a96fa5c0bec h1:7YSSJYu6A7EHDI4RRKVFODmlrQ5CVpGW5XPTK1eDZZk=
-github.com/SolaceLabs/steampipe-solace-go-client-sdk v0.0.0-20230712154347-4a96fa5c0bec/go.mod h1:Yb1RHgvpEbPPIasGq/38Y1Ppz7YLUh80aTX+hycElZM=
+github.com/SolaceLabs/steampipe-solace-go-client-sdk v0.0.0-20230717120817-d5d7adc353ef h1:F6zfpL4489ZuYpISacgv+qYPGXU/sQpcGU2ECPdzAEU=
+github.com/SolaceLabs/steampipe-solace-go-client-sdk v0.0.0-20230717120817-d5d7adc353ef/go.mod h1:Yb1RHgvpEbPPIasGq/38Y1Ppz7YLUh80aTX+hycElZM=
 github.com/XiaoMi/pegasus-go-client v0.0.0-20210427083443-f3b6b08bc4c2 h1:pami0oPhVosjOu/qRHepRmdjD6hGILF7DBr+qQZeP10=
 github.com/XiaoMi/pegasus-go-client v0.0.0-20210427083443-f3b6b08bc4c2/go.mod h1:jNIx5ykW1MroBuaTja9+VpglmaJOUzezumfhLlER3oY=
 github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d h1:licZJFw2RwpHMqeKTCYkitsPqHNxTmd4SNR5r94FGM8=

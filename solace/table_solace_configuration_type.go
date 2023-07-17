@@ -21,23 +21,23 @@ func tableConfigurationType(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "brokerType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "associatedEntityTypes", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "valueSchema", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "broker_type", Type: proto.ColumnType_STRING, Description: "Broker Type"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "associated_entity_types", Type: proto.ColumnType_STRING, Description: "Associated Entity Types"},
+			{Name: "value_schema", Type: proto.ColumnType_JSON, Description: "Value Schema"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listConfigurationTypes(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listConfigurationTypes", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_configurationType.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_configurationType.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -49,14 +49,14 @@ func listConfigurationTypes(ctx context.Context, d *plugin.QueryData, h *plugin.
 	count := 0
 	for pagesLeft {
 		configurationTypes, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_configurationType.listConfigurationTypes", "configurationTypes", configurationTypes)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_configurationType.listConfigurationTypes", "configurationTypes", configurationTypes)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_configurationType.listConfigurationTypes", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -73,16 +73,16 @@ func listConfigurationTypes(ctx context.Context, d *plugin.QueryData, h *plugin.
 }
 
 func getConfigurationType(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_configurationType.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_configurationType.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_configurationType.getConfigurationType - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_configurationType.getConfigurationType - ID", id)
 
 	configurationType, err := c.GetConfigurationType(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_configurationType.getConfigurationType", "configurationType", fmt.Sprintf("%+v", configurationType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_configurationType.getConfigurationType", "configurationType", fmt.Sprintf("%+v", configurationType))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_configurationType.getConfigurationType", "request_error", err)
 		return nil, err

@@ -12,13 +12,15 @@ const pluginName = "steampipe-plugin-solace"
 func Plugin(ctx context.Context) *plugin.Plugin {
 	p := &plugin.Plugin{
 		Name:             pluginName,
-		DefaultTransform: transform.FromCamel().NullIfZero(),
+		DefaultTransform: transform.FromCamel(),
+		DefaultIgnoreConfig: &plugin.IgnoreConfig{
+			ShouldIgnoreErrorFunc: shouldIgnoreErrors([]string{"404"}),
+		},
 		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
 			NewInstance: ConfigInstance,
 			Schema:      ConfigSchema,
 		},
 		TableMap: map[string]*plugin.Table{
-			"solace_domain_dependency":           tableDomainDependency(ctx),
 			"solace_application_domain":          tableApplicationDomain(ctx),
 			"solace_application":                 tableApplication(ctx),
 			"solace_application_version":         tableApplicationVersion(ctx),
@@ -52,4 +54,5 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 	return p
 }
 
+// NOT IMPLEMENTED
 // "solace_datacenter_event_broker_service_version": tableDatacenterEventBrokerServiceVersion(ctx),

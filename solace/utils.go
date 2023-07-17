@@ -22,7 +22,7 @@ func NewSolaceClient(c *plugin.Connection) (*solace.Client, error) {
 		return nil, fmt.Errorf("config object is not valid")
 	}
 
-	var config, err = solace.NewConfig(cfg.ApiToken, cfg.ApiUrl, cfg.RateLimit)
+	var config, err = solace.NewConfig(cfg.ApiToken, cfg.ApiUrl)
 	if err != nil {
 		return nil, err
 	}

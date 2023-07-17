@@ -21,25 +21,25 @@ func tableEventApi(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "shared", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "applicationDomainId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "numberOfVersions", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "brokerType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "customAttributes", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "shared", Type: proto.ColumnType_STRING, Description: "Shared?"},
+			{Name: "application_domain_id", Type: proto.ColumnType_STRING, Description: "Application Domain Id"},
+			{Name: "number_of_versions", Type: proto.ColumnType_STRING, Description: "Number of Versions"},
+			{Name: "broker_type", Type: proto.ColumnType_STRING, Description: "Broker Type"},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listEventApis(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listEventApis", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApi.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApi.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -51,14 +51,14 @@ func listEventApis(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	count := 0
 	for pagesLeft {
 		eventApis, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_eventApi.listEventApis", "eventApis", eventApis)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_eventApi.listEventApis", "eventApis", eventApis)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_eventApi.listEventApis", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -75,16 +75,16 @@ func listEventApis(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 }
 
 func getEventApi(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApi.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApi.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApi.getEventApi - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApi.getEventApi - ID", id)
 
 	eventApi, err := c.GetEventApi(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_eventApi.getEventApi", "eventApi", fmt.Sprintf("%+v", eventApi))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_eventApi.getEventApi", "eventApi", fmt.Sprintf("%+v", eventApi))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_eventApi.getEventApi", "request_error", err)
 		return nil, err

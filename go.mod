@@ -3,7 +3,7 @@ module github.com/SolaceLabs/steampipe-plugin-solace
 go 1.20
 
 require (
-	github.com/SolaceLabs/steampipe-solace-go-client-sdk v0.0.0-20230712154347-4a96fa5c0bec
+	github.com/SolaceLabs/steampipe-solace-go-client-sdk v0.0.0-20230717120817-d5d7adc353ef
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.5.0
 )
 

@@ -21,24 +21,24 @@ func tableConsumer(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "consumerType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "brokerType", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "applicationVersionId", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "subscriptions", Type: proto.ColumnType_JSON, Description: ""},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "createdTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "changedBy", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "updatedTime", Type: proto.ColumnType_TIMESTAMP, Description: ""},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
+			{Name: "consumer_type", Type: proto.ColumnType_STRING, Description: "Consumer Type"},
+			{Name: "broker_type", Type: proto.ColumnType_STRING, Description: "Broker Type"},
+			{Name: "application_version_id", Type: proto.ColumnType_STRING, Description: "Application Version Id"},
+			{Name: "subscriptions", Type: proto.ColumnType_JSON, Description: "Subscriptions"},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
 		},
 	}
 }
 
 func listConsumers(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	LogQueryContext("listConsumers", ctx, d, h)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_consumer.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_consumer.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 
 	client, err := NewSolaceClient(d.Connection)
 	if err != nil {
@@ -50,14 +50,14 @@ func listConsumers(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	count := 0
 	for pagesLeft {
 		consumers, meta, err := tlp.NextPage()
-		plugin.Logger(ctx).Trace("DEBUGGING solace_consumer.listConsumers", "consumers", consumers)
+		plugin.Logger(ctx).Debug("DEBUGGING solace_consumer.listConsumers", "consumers", consumers)
 		if err != nil {
 			plugin.Logger(ctx).Error("solace_consumer.listConsumers", "request_error", err)
 			pagesLeft = false
 			// return nil, err
 		} else {
 			count += meta.Pagination.Count
-			plugin.Logger(ctx).Trace("RECORDS FETCHED - ", count)
+			plugin.Logger(ctx).Debug("RECORDS FETCHED - ", count)
 		}
 
 		// stream results
@@ -74,16 +74,16 @@ func listConsumers(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 }
 
 func getConsumer(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	plugin.Logger(ctx).Trace("DEBUGGING solace_consumer.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_consumer.QueryData", "QueryData", fmt.Sprintf("%+v", d.FetchType))
 	c, err := NewSolaceClient(d.Connection)
 	if err != nil {
 		return nil, err
 	}
 	id := d.EqualsQualString("id")
-	plugin.Logger(ctx).Trace("DEBUGGING solace_consumer.getConsumer - ID", id)
+	plugin.Logger(ctx).Debug("DEBUGGING solace_consumer.getConsumer - ID", id)
 
 	consumer, err := c.GetConsumer(id)
-	plugin.Logger(ctx).Trace("DEBUGGING solace_consumer.getConsumer", "consumer", fmt.Sprintf("%+v", consumer))
+	plugin.Logger(ctx).Debug("DEBUGGING solace_consumer.getConsumer", "consumer", fmt.Sprintf("%+v", consumer))
 	if err != nil {
 		plugin.Logger(ctx).Error("DEBUGGING solace_consumer.getConsumer", "request_error", err)
 		return nil, err
