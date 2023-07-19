@@ -1,6 +1,6 @@
 module github.com/SolaceLabs/steampipe-plugin-solace
 
-go 1.20
+go 1.19
 
 require (
 	github.com/SolaceLabs/steampipe-solace-go-client-sdk v0.0.0-20230717120817-d5d7adc353ef

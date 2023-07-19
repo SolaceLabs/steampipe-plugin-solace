@@ -21,17 +21,17 @@ func tableApplicationDomain(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "Application Domain Id"},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: "Application Domain Name"},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description"},
-			{Name: "unique_topic_address_enforcement_enabled", Type: proto.ColumnType_BOOL, Description: "Unique Topic Enforcement enabled?"},
-			{Name: "topic_domain_enforcement_enabled", Type: proto.ColumnType_BOOL, Description: "Topic Domain Enforcement Enabled?"},
-			{Name: "stats", Type: proto.ColumnType_JSON, Description: "Stats"},
-			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
-			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
-			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
-			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Changed By"},
-			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Updated Time"},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Application Domain Id."},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Application Domain Name."},
+			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description."},
+			{Name: "unique_topic_address_enforcement_enabled", Type: proto.ColumnType_BOOL, Description: "Unique Topic Enforcement enabled?."},
+			{Name: "topic_domain_enforcement_enabled", Type: proto.ColumnType_BOOL, Description: "Topic Domain Enforcement Enabled?."},
+			{Name: "stats", Type: proto.ColumnType_JSON, Description: "Stats."},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes."},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By."},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time."},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Changed By."},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Updated Time."},
 		},
 	}
 }

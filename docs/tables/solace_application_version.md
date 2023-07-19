@@ -10,35 +10,81 @@ In Event Portal, when you update an Application, you can update an existing vers
 
 ## Examples
 
-### List of all Application Versions
+### List of all application versions
 
 ```sql
 select
   av.version as version,
   av."displayName" as versionName,
-  a.name as application
+  a.name as application 
 from
-  solace_application_version av
+  solace_application_version av 
   join
-    solace_application a
-    on av."applicationId" = a.id
-where av.id = 'n5o41x2fh62';
+    solace_application a 
+    on av."applicationId" = a.id 
+where
+  av.id = 'n5o41x2fh62';
 
 -- or a simplified version
 
 select
-  id, version, displayName
+  id, 
+  version, 
+  displayName
 from
   solace_application_version;
 ```
 
-### Detail of an Application Version
+### Details of an application version
 
 ```sql
 select
-  *
+  id, 
+  version, 
+  displayName,
+  declared_produced_event_version_ids,
+  declared_consumed_event_version_ids,
+  type,
+  created_by,
+  created_time
 from
   solace_application_version
 where
   id = 'n5o4xx2fh62';
+```
+
+### List application versions that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  declared_produced_event_version_ids,
+  declared_consumed_event_version_ids,
+  type,
+  created_by,
+  created_time
+from
+  solace_application_version
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List application versions that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  declared_produced_event_version_ids,
+  declared_consumed_event_version_ids,
+  type,
+  changed_by,
+  updated_time
+from
+  solace_application_version
+where
+  updated_time <= now() - interval '10' day;
 ```

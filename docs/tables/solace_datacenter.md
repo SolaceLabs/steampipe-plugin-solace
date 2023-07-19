@@ -10,23 +10,76 @@ Information about available Data Centers on the Solace PubSub+ Cloud.
 
 ## Examples
 
-### List of all Data Centers
+### List all data centers
 
 ```sql
-
 select
-  id, name, location
+  id, 
+  name, 
+  location,
+  datacenter_type,
+  provider,
+  oper_state
 from
   solace_datacenter;
 ```
 
-### Detail of a Data Center
+### Details of a data center
 
 ```sql
 select
-  *
+  id, 
+  name, 
+  location,
+  datacenter_type,
+  provider,
+  oper_state,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_datacenter
 where
   id = 'n5o4xx2fh62';
+```
+
+### List data centers that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name, 
+  location,
+  datacenter_type,
+  provider,
+  oper_state,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_datacenter
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List data centers that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name, 
+  location,
+  datacenter_type,
+  provider,
+  oper_state,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_datacenter
+where
+  updated_time <= now() - interval '10' day;
 ```

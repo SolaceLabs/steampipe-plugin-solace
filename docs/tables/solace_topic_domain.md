@@ -13,20 +13,69 @@ Information about Topic Domains on the Solace PubSub+ Cloud.
 ### List of all Topic Domains
 
 ```sql
-
 select
-  id, type
+  id, 
+  type,
+  application_domain_id,
+  broker_type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_topic_domain;
 ```
 
-### Detail of a Topic Domain
+### Details of a Topic Domain
 
 ```sql
 select
-  *
+  id, 
+  type,
+  application_domain_id,
+  broker_type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_topic_domain
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Topic Domains that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  type,
+  application_domain_id,
+  broker_type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_topic_domain
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Topic Domains that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  type,
+  application_domain_id,
+  broker_type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_topic_domain
+where
+  updated_time <= now() - interval '10' day;
 ```

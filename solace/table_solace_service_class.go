@@ -21,14 +21,14 @@ func tableServiceClass(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
-			{Name: "vpn_connections", Type: proto.ColumnType_INT, Description: "VPN Connections"},
-			{Name: "broker_scaling_tier", Type: proto.ColumnType_STRING, Description: "Broker Scaling Tier"},
-			{Name: "vpn_max_spool_size", Type: proto.ColumnType_INT, Description: "VPN Max Spool Size"},
-			{Name: "max_number_vpns", Type: proto.ColumnType_INT, Description: "Max Number of VPNs"},
-			{Name: "high_availability_capable", Type: proto.ColumnType_BOOL, Description: "High Availability Capable?"},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "ID."},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type."},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name."},
+			{Name: "vpn_connections", Type: proto.ColumnType_INT, Description: "VPN Connections."},
+			{Name: "broker_scaling_tier", Type: proto.ColumnType_STRING, Description: "Broker Scaling Tier."},
+			{Name: "vpn_max_spool_size", Type: proto.ColumnType_INT, Description: "VPN Max Spool Size."},
+			{Name: "max_number_vpns", Type: proto.ColumnType_INT, Description: "Max Number of VPNs."},
+			{Name: "high_availability_capable", Type: proto.ColumnType_BOOL, Description: "High Availability Capable?."},
 		},
 	}
 }

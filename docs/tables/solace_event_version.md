@@ -16,29 +16,84 @@ In Event Portal, when you update an Event, you can update an existing version or
 select
   ev.version as version,
   ev."displayName" as versionName,
-  e.name as name
+  e.name as name 
 from
-  solace_event_version ev
+  solace_event_version ev 
   join
-    solace_event e
-    on ev."enumId" = e.id
-where ev.id = 'n5o41x2fh62';
+    solace_event e 
+    on ev."enumId" = e.id 
+where
+  ev.id = 'n5o41x2fh62';
 
 -- or a simplified version
 
 select
-  id, version, displayName
+  id, 
+  version, 
+  displayName
 from
   solace_event_version;
 ```
 
-### Detail of an Event Version
+### Details of an Event Version
 
 ```sql
 select
-  *
+  id, 
+  version, 
+  displayName,
+  declared_producing_application_version_ids,
+  declared_consuming_application_version_ids,
+  producing_event_api_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event_version
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Event Versions that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  declared_producing_application_version_ids,
+  declared_consuming_application_version_ids,
+  producing_event_api_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event_version
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Event Versions that have not been updated in the last 10 days
+
+```sql
+select
+  id,
+  version, 
+  displayName,
+  declared_producing_application_version_ids,
+  declared_consuming_application_version_ids,
+  producing_event_api_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event_version
+where
+  updated_time <= now() - interval '10' day;
 ```

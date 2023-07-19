@@ -13,20 +13,77 @@ Details of Broker Services on the Solace PubSub+ Cloud.
 ### List details of all Broker Services
 
 ```sql
-
 select
-  id, name
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event_broker_service_detail;
 ```
 
-### Detail of a Broker Service
+### Details of a Broker Service
 
 ```sql
 select
-  *
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event_broker_service_detail
 where
   id = 'n5o4xx2fh62';
+```
+
+### List applications that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event_broker_service_detail
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List applications that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event_broker_service_detail
+where
+  updated_time <= now() - interval '10' day;
 ```

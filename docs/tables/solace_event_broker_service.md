@@ -13,20 +13,85 @@ Information about Broker Service on the Solace PubSub+ Cloud.
 ### List of all Broker Services
 
 ```sql
-
 select
-  id, name
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  service_class_id,
+  event_mesh_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time  
 from
   solace_event_broker_service;
 ```
 
-### Detail of a Broker Service
+### Details of a Broker Service
 
 ```sql
 select
-  *
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  service_class_id,
+  event_mesh_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event_broker_service
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Broker Services that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  service_class_id,
+  event_mesh_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event_broker_service
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Broker Services that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  type,
+  owned_by,
+  infrastructure_id,
+  datacenter_id,
+  service_class_id,
+  event_mesh_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event_broker_service
+where
+  updated_time <= now() - interval '10' day;
 ```

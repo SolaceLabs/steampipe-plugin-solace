@@ -10,23 +10,80 @@ Information about available Environments on the Solace PubSub+ Cloud.
 
 ## Examples
 
-### List of all Environments
+### List of all environments
 
 ```sql
-
 select
-  id, name, description
+  id, 
+  name, 
+  description,
+  revision,
+  number_of_event_meshes,
+  type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_environment;
 ```
 
-### Detail of an Environment
+### Details of an environment
 
 ```sql
 select
-  *
+  id, 
+  name, 
+  description,
+  revision,
+  number_of_event_meshes,
+  type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_environment
 where
   id = 'n5o4xx2fh62';
+```
+
+### List environments that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name, 
+  description,
+  revision,
+  number_of_event_meshes,
+  type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_environment
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List environments that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name, 
+  description,
+  revision,
+  number_of_event_meshes,
+  type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_environment
+where
+  updated_time <= now() - interval '10' day;
 ```

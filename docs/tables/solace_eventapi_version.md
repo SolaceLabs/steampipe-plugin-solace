@@ -16,29 +16,81 @@ In Event Portal, when you update an Event API, you can update an existing versio
 select
   ev.version as version,
   ev."displayName" as versionName,
-  e.name as name
+  e.name as name 
 from
-  solace_eventapi_version ev
+  solace_eventapi_version ev 
   join
-    solace_eventapi e
-    on ev."eventApiId" = e.id
-where ev.id = 'n5o41x2fh62';
+    solace_eventapi e 
+    on ev."eventApiId" = e.id 
+where
+  ev.id = 'n5o41x2fh62';
 
 -- or a simplified version
 
 select
-  id, version, displayName
+  id, 
+  version, 
+  displayName
 from
   solace_eventapi_version;
 ```
 
-### Detail of an Event API Version
+### Details of an Event API Version
 
 ```sql
 select
-  *
+  id, 
+  version, 
+  displayName,
+  produced_event_version_ids,
+  consumed_event_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time   
 from
   solace_eventapi_version
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Event API Versions that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  produced_event_version_ids,
+  consumed_event_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_eventapi_version
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Event API Versions that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  produced_event_version_ids,
+  consumed_event_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_eventapi_version
+where
+  updated_time <= now() - interval '10' day;
 ```

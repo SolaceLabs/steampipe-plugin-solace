@@ -10,23 +10,63 @@ Information about available configuration types.
 
 ## Examples
 
-### List of all Configuration Type
+### List of all configuration type
 
 ```sql
-
 select
-  id, name
+  id, 
+  name
 from
   solace_configuration_type;
 ```
 
-### Detail of an Configuration Type
+### Details of a configuration type
 
 ```sql
 select
-  *
+  id, 
+  name,
+  broker_type,
+  type,
+  associated_entity_types,
+  created_time,
+  created_by
 from
   solace_configuration_type
 where
   id = 'n5o4xx2fh62';
+```
+
+### List the configuration types that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  broker_type,
+  type,
+  associated_entity_types,
+  created_time,
+  created_by
+from
+  solace_configuration_type
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List the configuration types that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  broker_type,
+  type,
+  associated_entity_types,
+  created_time,
+  created_by
+from
+  solace_configuration_type
+where
+  updated_time <= now() - interval '10' day;
 ```

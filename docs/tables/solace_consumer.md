@@ -10,23 +10,72 @@ Information about configured consumers on an application version.
 
 ## Examples
 
-### List of all Consumers
+### List of all consumers
 
 ```sql
-
 select
-  id, name
+  id, 
+  name,
+  consumer_type,
+  broker_type,
+  application_version_id,
+  subscriptions,
+  type
 from
   solace_consumer;
 ```
 
-### Detail of a Consumer
+### Details of a consumer
 
 ```sql
 select
-  *
+  id, 
+  name,
+  consumer_type,
+  broker_type,
+  application_version_id,
+  subscriptions,
+  type
 from
   solace_consumer
 where
   id = 'n5o4xx2fh62';
+```
+
+### List consumers that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  consumer_type,
+  broker_type,
+  application_version_id,
+  subscriptions,
+  type
+  created_time,
+  created_by
+from
+  solace_consumer
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List consumers that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  consumer_type,
+  broker_type,
+  application_version_id,
+  subscriptions,
+  type,
+  changed_by,
+  updated_time
+from
+  solace_consumer
+where
+  updated_time <= now() - interval '10' day;
 ```

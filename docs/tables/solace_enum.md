@@ -10,7 +10,7 @@ In Event Portal, an enumeration is a bounded variable with a limited set of lite
 
 ## Examples
 
-### List of all Enums
+### List of all enums
 
 ```sql
 select
@@ -28,18 +28,76 @@ where
 -- or a simplified version
 
 select
-  id, name
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  number_of_versions,
+  event_version_ref_count,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_enum;
 ```
 
-### Detail of an Enum
+### Details of an enum
 
 ```sql
 select
-  *
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  number_of_versions,
+  event_version_ref_count,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_enum
 where
   id = 'n5o4xx2fh62';
+```
+
+### List enums that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  number_of_versions,
+  event_version_ref_count,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_enum
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List enums that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  number_of_versions,
+  event_version_ref_count,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_enum
+where
+  updated_time <= now() - interval '10' day;
 ```

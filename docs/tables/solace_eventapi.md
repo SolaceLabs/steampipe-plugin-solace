@@ -28,23 +28,77 @@ from
     solace_eventapi_version ev
     on ev."eventApiId" = e.id
 where 
-  e.id = '08ctmc2lyp6'
+  e.id = '08ctmc2lyp6';
 
 -- or a simplified version
 
 select
-  id, name
+  id,
+  name,
+  shared,
+  application_domain_id,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time  
 from
   solace_eventapi;
 ```
 
-### Detail of an Event API
+### Details of an Event API
 
 ```sql
 select
-  *
+  id,
+  name,
+  shared,
+  application_domain_id,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time  
 from
   solace_eventapi
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Event APIs that have been created in the last 30 days
+
+```sql
+select
+  id,
+  name,
+  shared,
+  application_domain_id,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time  
+from
+  solace_eventapi
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Event APIs that have not been updated in the last 10 days
+
+```sql
+select
+  id,
+  name,
+  shared,
+  application_domain_id,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_eventapi
+where
+  updated_time <= now() - interval '10' day;
 ```

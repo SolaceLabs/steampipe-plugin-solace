@@ -16,29 +16,69 @@ An application in Event Portal is an object that represents software that produc
 select
   a.name as application,
   av.version as version,
-  av."displayName" as versionName
+  av."displayName" as versionName 
 from
-  solace_application a
+  solace_application a 
   join
-    solace_application_version av
-    on av."applicationId" = a.id
-where a.id = 'n5o41x2fh62';
+    solace_application_version av 
+    on av."applicationId" = a.id 
+where
+  a.id = 'n5o41x2fh62';
 
 -- or a simplified version
 
 select
-  id, name
+  id, 
+  name
 from
   solace_application;
 ```
 
-### Detail of an Application
+### Details of an application
 
 ```sql
 select
-  *
+  id,
+  name,
+  application_type,
+  broker_type,
+  custom_attributes
 from
   solace_application
 where
   id = 'n5o4xx2fh62';
+```
+
+### List applications that have been created in the last 30 days
+
+```sql
+select
+  id,
+  name,
+  application_type,
+  broker_type,
+  custom_attributes,
+  created_time,
+  created_by
+from
+  solace_configuration_type
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List applications that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  broker_type,
+  type,
+  associated_entity_types,
+  changed_by,
+  updated_time
+from
+  solace_configuration_type
+where
+  updated_time <= now() - interval '10' day;
 ```

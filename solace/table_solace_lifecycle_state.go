@@ -17,11 +17,11 @@ func tableLifecycleState(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description"},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
-			{Name: "state_order", Type: proto.ColumnType_INT, Description: "State Order"},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "ID."},
+			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description."},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name."},
+			{Name: "state_order", Type: proto.ColumnType_INT, Description: "State Order."},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type."},
 		},
 	}
 }

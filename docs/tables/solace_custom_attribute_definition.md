@@ -10,23 +10,76 @@ Information about configured Custom Attributes on Event Portal resources.
 
 ## Examples
 
-### List of all Custom Attributes
+### List of all custom attributes
 
 ```sql
-
 select
-  id, name
+  id, 
+  name,
+  value_type,
+  scope,
+  associated_entity_types,
+  associated_entities
 from
   solace_custom_attribute_definition;
 ```
 
-### Detail of a Custom Attribute
+### Details of a custom attribute
 
 ```sql
 select
-  *
+  id, 
+  name,
+  value_type,
+  scope,
+  associated_entity_types,
+  associated_entities,
+  created_by,
+  created_time,
+  changed_by,
+  updated_time
 from
   solace_custom_attribute_definition
 where
   id = 'n5o4xx2fh62';
+```
+
+### List custom attributes that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  value_type,
+  scope,
+  associated_entity_types,
+  associated_entities,
+  created_by,
+  created_time,
+  changed_by,
+  updated_time
+from
+  solace_custom_attribute_definition
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List custom attributes that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  value_type,
+  scope,
+  associated_entity_types,
+  associated_entities,
+  created_by,
+  created_time,
+  changed_by,
+  updated_time
+from
+  solace_custom_attribute_definition
+where
+  updated_time <= now() - interval '10' day;
 ```
