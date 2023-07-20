@@ -3,7 +3,6 @@ package solace
 import (
 	"context"
 	"fmt"
-	"strings"
 
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
@@ -23,35 +22,25 @@ func tableApplicationVersion(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "Application Version Id"},
-			{Name: "application_id", Type: proto.ColumnType_STRING, Description: "Application Id"},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description"},
-			{Name: "version", Type: proto.ColumnType_STRING, Description: "Version Number"},
-			{Name: "display_name", Type: proto.ColumnType_STRING, Description: "Version Display Name"},
-			{Name: "declared_produced_event_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("DeclaredProducedEventVersionIdsAsString"), Description: "Event Version IDs produced by the Application"},
-			{Name: "declared_consumed_event_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("DeclaredConsumedEventVersionIdsAsString"), Description: "Event Version IDs consumed by the Application"},
-			{Name: "declared_event_api_product_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("DeclaredEventApiProductVersionIdsAsString"), Description: "Event API Product Version Ids"},
-			{Name: "state_id", Type: proto.ColumnType_STRING, Description: "Application State"},
-			{Name: "consumers", Type: proto.ColumnType_JSON, Description: "Application Consumers"},
-			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes"},
-			{Name: "messaging_service_ids", Type: proto.ColumnType_STRING, Description: "Messaging Service Ids"},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
-			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
-			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
-			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
-			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "Application Version Id."},
+			{Name: "application_id", Type: proto.ColumnType_STRING, Description: "Application Id."},
+			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description."},
+			{Name: "version", Type: proto.ColumnType_STRING, Description: "Version Number."},
+			{Name: "display_name", Type: proto.ColumnType_STRING, Description: "Version Display Name."},
+			{Name: "declared_produced_event_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("DeclaredProducedEventVersionIdsAsString"), Description: "Event Version IDs produced by the Application."},
+			{Name: "declared_consumed_event_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("DeclaredConsumedEventVersionIdsAsString"), Description: "Event Version IDs consumed by the Application."},
+			{Name: "declared_event_api_product_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("DeclaredEventApiProductVersionIdsAsString"), Description: "Event API Product Version Ids."},
+			{Name: "state_id", Type: proto.ColumnType_STRING, Description: "Application State."},
+			{Name: "consumers", Type: proto.ColumnType_JSON, Description: "Application Consumers."},
+			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes."},
+			{Name: "messaging_service_ids", Type: proto.ColumnType_STRING, Description: "Messaging Service Ids."},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type."},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By."},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time."},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By."},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time."},
 		},
 	}
-}
-
-func buildCSV(ctx context.Context, d *transform.TransformData) (string, error) {
-	fields := d.Value.([]string)
-	plugin.Logger(ctx).Debug("DEBUGGING TRANSFORMP", fields)
-	if fields != nil {
-		return strings.Join(fields, ", "), nil
-	}
-	plugin.Logger(ctx).Debug("DEBUGGING TRANSFORMP EMPTY", fields)
-	return "", nil
 }
 
 func listApplicationVersions(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {

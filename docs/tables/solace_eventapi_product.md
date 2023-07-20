@@ -23,12 +23,13 @@ from
     solace_eventapi_product_version ev
     on ev."eventApiProductId" = e.id
 where 
-  e.id = '08ctmc2lyp6'
+  e.id = '08ctmc2lyp6';
 
 -- or a simplified version
 
 select
-  id, name
+  id, 
+  name
 from
   solace_eventapi_product;
 ```
@@ -37,9 +38,55 @@ from
 
 ```sql
 select
-  *
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_eventapi_product
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Event API Products that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_eventapi_product
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Event API Products that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_eventapi_product
+where
+  updated_time <= now() - interval '10' day;
 ```

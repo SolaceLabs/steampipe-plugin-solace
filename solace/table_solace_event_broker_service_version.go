@@ -18,10 +18,10 @@ func tableEventBrokerServiceVersion(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
-			{Name: "version", Type: proto.ColumnType_STRING, Description: "Version"},
-			{Name: "supported_service_classes", Type: proto.ColumnType_STRING, Description: "Supported Service Classes"},
-			{Name: "capabilities", Type: proto.ColumnType_JSON, Description: "Capabilities"},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "ID."},
+			{Name: "version", Type: proto.ColumnType_STRING, Description: "Version."},
+			{Name: "supported_service_classes", Type: proto.ColumnType_STRING, Description: "Supported Service Classes."},
+			{Name: "capabilities", Type: proto.ColumnType_JSON, Description: "Capabilities."},
 		},
 	}
 }

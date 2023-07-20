@@ -16,29 +16,81 @@ In Event Portal, when you update an Event API Product, you can update an existin
 select
   ev.version as version,
   ev."displayName" as versionName,
-  e.name as name
+  e.name as name 
 from
-  solace_eventapi_product_version ev
+  solace_eventapi_product_version ev 
   join
-    solace_eventapi_product_ e
-    on ev."eventApiProductId" = e.id
-where ev.id = 'n5o41x2fh62';
+    solace_eventapi_product_ e 
+    on ev."eventApiProductId" = e.id 
+where
+  ev.id = 'n5o41x2fh62';
 
 -- or a simplified version
 
 select
-  id, version, displayName
+  id, 
+  version, 
+  displayName
 from
-  solace_eventapi_product__version;
+  solace_eventapi_product_version;
 ```
 
-### Detail of an Event API Product Version
+### Details of an Event API Product Version
 
 ```sql
 select
-  *
+  id, 
+  version, 
+  displayName,
+  summary,
+  event_api_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time  
 from
-  solace_eventapi_product__version
+  solace_eventapi_product_version
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Event API Product Versions that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  summary,
+  event_api_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_eventapi_product_version
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Event API Product Versions that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  summary,
+  event_api_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_eventapi_product_version
+where
+  updated_time <= now() - interval '10' day;
 ```

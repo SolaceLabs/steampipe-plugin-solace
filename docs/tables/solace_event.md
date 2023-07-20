@@ -28,18 +28,65 @@ where
 -- or a simplified version
 
 select
-  id, name
+  id, 
+  name
 from
   solace_event;
 ```
 
-### Detail of an Event
+### Details of an Event
 
 ```sql
 select
-  *
+  id, 
+  name,
+  shared,
+  application_domain_id,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Events that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  shared,
+  application_domain_id,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Events that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  shared,
+  application_domain_id,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_event
+where
+  updated_time <= now() - interval '10' day;
 ```

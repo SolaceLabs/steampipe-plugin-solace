@@ -13,20 +13,42 @@ Information about Service Classes on the Solace PubSub+ Cloud.
 ### List of all Service Classes
 
 ```sql
-
 select
-  id, name
+  id, 
+  name,
+  type
 from
   solace_service_class;
 ```
 
-### Detail of a Service Class
+### Details of a Service Class
 
 ```sql
 select
-  *
+  id, 
+  name,
+  type,
+  vpn_connections,
+  broker_scaling_tier,
+  vpn_max_spool_size
 from
   solace_service_class
 where
   id = 'n5o4xx2fh62';
+```
+
+### List service classes which have more than 5 VPN connections
+
+```sql
+select
+  id, 
+  name,
+  type,
+  vpn_connections,
+  broker_scaling_tier,
+  vpn_max_spool_size
+from
+  solace_service_class
+where
+  vpn_connections > 5;
 ```

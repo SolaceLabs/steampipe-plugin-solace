@@ -21,16 +21,16 @@ func tableEnvironment(_ context.Context) *plugin.Table {
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "id", Type: proto.ColumnType_STRING, Description: "Id"},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name"},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description"},
-			{Name: "revision", Type: proto.ColumnType_INT, Description: "Revision"},
-			{Name: "number_of_event_meshes", Type: proto.ColumnType_INT, Description: "Number of Event Meshes"},
-			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type"},
-			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By"},
-			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time"},
-			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By"},
-			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time"},
+			{Name: "id", Type: proto.ColumnType_STRING, Description: "ID."},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "Name."},
+			{Name: "description", Type: proto.ColumnType_STRING, Description: "Description."},
+			{Name: "revision", Type: proto.ColumnType_INT, Description: "Revision."},
+			{Name: "number_of_event_meshes", Type: proto.ColumnType_INT, Description: "Number of Event Meshes."},
+			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type."},
+			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By."},
+			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time."},
+			{Name: "changed_by", Type: proto.ColumnType_STRING, Description: "Modified By."},
+			{Name: "updated_time", Type: proto.ColumnType_TIMESTAMP, Description: "Modified Time."},
 		},
 	}
 }

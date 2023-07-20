@@ -15,18 +15,68 @@ Information about deployed Event Meshes on the Solace PubSub+ Cloud.
 ```sql
 
 select
-  id, name
+  id, 
+  name,
+  environment_id,
+  description,
+  broker_type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event_mesh;
 ```
 
-### Detail of an Event Mesh
+### Details of an Event Mesh
 
 ```sql
 select
-  *
+  id, 
+  name,
+  environment_id,
+  description,
+  broker_type,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event_mesh
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Event Meshes that have been created in the last 30 days
+
+```sql
+select
+  id,
+  name,
+  application_type,
+  broker_type,
+  custom_attributes,
+  created_time,
+  created_by
+from
+  solace_event_mesh
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Event Meshes that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  broker_type,
+  type,
+  associated_entity_types,
+  changed_by,
+  updated_time
+from
+  solace_event_mesh
+where
+  updated_time <= now() - interval '10' day;
 ```

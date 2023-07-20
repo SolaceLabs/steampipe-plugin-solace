@@ -23,23 +23,73 @@ from
     solace_schema_version sv
     on sv."schemaId" = s.id
 where 
-  s.id = '08ctmc2lyp6'
+  s.id = '08ctmc2lyp6';
 
 -- or a simplified version
 
 select
-  id, name
+  id, 
+  name
 from
   solace_schema;
 ```
 
-### Detail of a Schema
+### Details of a Schema
 
 ```sql
 select
-  *
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  schema_type,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time    
 from
   solace_schema
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Schemas that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  schema_type,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_schema
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Schemas that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  name,
+  application_domain_id,
+  shared,
+  schema_type,
+  number_of_versions,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_schema
+where
+  updated_time <= now() - interval '10' day;
 ```

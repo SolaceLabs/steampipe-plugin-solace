@@ -10,23 +10,66 @@ Information about available configurations.
 
 ## Examples
 
-### List of all Configurations
+### List of all configurations
 
 ```sql
-
 select
-  id, type
+  id, 
+  type,
+  context_type,
+  context_id,
+  created_by,
+  created_time
 from
   solace_configuration;
 ```
 
-### Detail of a Configuration
+### Details of a configuration
 
 ```sql
 select
-  *
+  id, 
+  type,
+  context_type,
+  context_id,
+  created_by,
+  created_time
 from
   solace_configuration
 where
   id = 'n5o4xx2fh62';
+```
+
+### List configurations that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  type,
+  context_type,
+  context_id,
+  created_by,
+  created_time
+from
+  solace_configuration
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List configurations that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  type,
+  context_type,
+  context_id,
+  created_by,
+  created_time,
+  changed_by,
+  updated_time
+from
+  solace_configuration
+where
+  updated_time <= now() - interval '10' day;
 ```

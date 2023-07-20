@@ -13,18 +13,22 @@ Information about Lifecycle States on the Solace PubSub+ Cloud.
 ### List of all Lifecycle States
 
 ```sql
-
 select
-  id, name
+  id, 
+  name
 from
   solace_lifecycle_state;
 ```
 
-### Detail of a Lifecycle State
+### Details of a Lifecycle State
 
 ```sql
 select
-  *
+  id, 
+  name,
+  description,
+  state_order,
+  type
 from
   solace_lifecycle_state
 where

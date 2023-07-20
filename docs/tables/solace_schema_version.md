@@ -16,18 +16,21 @@ In Event Portal, when you update a Schema, you can update an existing version or
 select
   sv.version as version,
   sv."displayName" as versionName,
-  s.name as name
+  s.name as name 
 from
-  solace_schema_version sv
+  solace_schema_version sv 
   join
-    solace_schema s
-    on sv."enumId" = s.id
-where sv.id = 'n5o41x2fh62';
+    solace_schema s 
+    on sv."enumId" = s.id 
+where
+  sv.id = 'n5o41x2fh62';
 
 -- or a simplified version
 
 select
-  id, version, displayName
+  id, 
+  version, 
+  displayName
 from
   solace_schema_version;
 ```
@@ -36,9 +39,61 @@ from
 
 ```sql
 select
-  *
+  id, 
+  version, 
+  displayName,
+  content,
+  referenced_by_event_version_ids,
+  referenced_by_schema_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time  
 from
   solace_schema_version
 where
   id = 'n5o4xx2fh62';
+```
+
+### List Schema Versions that have been created in the last 30 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  content,
+  referenced_by_event_version_ids,
+  referenced_by_schema_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_schema_version
+where
+  created_time >= now() - interval '30' day;
+```
+
+### List Schema Versions that have not been updated in the last 10 days
+
+```sql
+select
+  id, 
+  version, 
+  displayName,
+  content,
+  referenced_by_event_version_ids,
+  referenced_by_schema_version_ids,
+  state_id,
+  created_time,
+  created_by,
+  changed_by,
+  updated_time
+from
+  solace_schema_version
+where
+  updated_time <= now() - interval '10' day;
 ```
