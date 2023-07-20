@@ -29,7 +29,7 @@ func tableEventManagementAgent(_ context.Context) *plugin.Table {
 			{Name: "referenced_by_messaging_service_ids", Type: proto.ColumnType_STRING, Description: "Referenced by Messaging Service Ids."},
 			{Name: "org_id", Type: proto.ColumnType_STRING, Description: "Organization Id."},
 			{Name: "status", Type: proto.ColumnType_STRING, Description: "Status."},
-			{Name: "last_connected_time", Type: proto.ColumnType_STRING, Description: "Last Connected Time."},
+			{Name: "last_connected_time", Type: proto.ColumnType_TIMESTAMP, Description: "Last Connected Time."},
 			{Name: "event_management_agent_region_id", Type: proto.ColumnType_STRING, Description: "Event Management Agent Region Id."},
 			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type."},
 			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By."},

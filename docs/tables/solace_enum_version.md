@@ -15,13 +15,13 @@ In Event Portal, when you update an Enum, you can update an existing version or 
 ```sql
 select
   ev.version as version,
-  ev."displayName" as versionName,
+  ev.display_name as versionName,
   e.name as name
 from
   solace_enum_version ev
   join
     solace_enum e
-    on ev."enumId" = e.id
+    on ev.enum_id = e.id
 where ev.id = 'n5o41x2fh62';
 
 -- or a simplified version
@@ -29,7 +29,7 @@ where ev.id = 'n5o41x2fh62';
 select
   id, 
   version, 
-  displayName
+  display_name
 from
   solace_enum_version;
 ```
@@ -40,7 +40,7 @@ from
 select
   id, 
   version, 
-  displayName,
+  display_name,
   state_id,
   created_time,
   created_by,
@@ -58,7 +58,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   state_id,
   created_time,
   created_by,
@@ -76,7 +76,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   state_id,
   created_time,
   created_by,

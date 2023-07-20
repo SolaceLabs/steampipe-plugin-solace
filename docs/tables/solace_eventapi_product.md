@@ -16,12 +16,12 @@ In Event Portal, an Even API Product is a bundle of event APIs that you can prov
 select
   e.name as event,
   ev.version as version,
-  ev."displayName" as versionName
+  ev.display_name as versionName
 from
   solace_eventapi_product e
   join
     solace_eventapi_product_version ev
-    on ev."eventApiProductId" = e.id
+    on ev.event_api_product_id = e.id
 where 
   e.id = '08ctmc2lyp6';
 

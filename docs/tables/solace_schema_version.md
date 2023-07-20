@@ -15,13 +15,13 @@ In Event Portal, when you update a Schema, you can update an existing version or
 ```sql
 select
   sv.version as version,
-  sv."displayName" as versionName,
+  sv.display_name as versionName,
   s.name as name 
 from
   solace_schema_version sv 
   join
     solace_schema s 
-    on sv."enumId" = s.id 
+    on sv.enum_id = s.id 
 where
   sv.id = 'n5o41x2fh62';
 
@@ -30,7 +30,7 @@ where
 select
   id, 
   version, 
-  displayName
+  display_name
 from
   solace_schema_version;
 ```
@@ -41,7 +41,7 @@ from
 select
   id, 
   version, 
-  displayName,
+  display_name,
   content,
   referenced_by_event_version_ids,
   referenced_by_schema_version_ids,
@@ -62,7 +62,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   content,
   referenced_by_event_version_ids,
   referenced_by_schema_version_ids,
@@ -83,7 +83,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   content,
   referenced_by_event_version_ids,
   referenced_by_schema_version_ids,

@@ -20,7 +20,7 @@ from
   solace_application_domain d 
   join
     solace_application a 
-    on a."applicationDomainId" = d.id;
+    on a.application_domain_id = d.id;
 
 -- or a simplified version
 
@@ -54,26 +54,24 @@ where
 select
   id,
   name,
-  application_type,
-  broker_type,
-  custom_attributes,
-  created_time,
-  created_by
+  description,
+  stats,
+  created_by,
+  created_time
 from
   solace_application_domain
 where
   created_time >= now() - interval '30' day;
 ```
 
-### List application domains that have not been updated in the last 10 days
+### List application domains that have not been updated in the last 30 days
 
 ```sql
 select
-  id, 
+  id,
   name,
-  broker_type,
-  type,
-  associated_entity_types,
+  description,
+  stats,
   changed_by,
   updated_time
 from

@@ -38,7 +38,7 @@ func tableEventApiProductVersion(_ context.Context) *plugin.Table {
 			{Name: "filters", Type: proto.ColumnType_STRING, Description: "Filters."},
 			{Name: "approval_type", Type: proto.ColumnType_STRING, Description: "Approval Type."},
 			{Name: "publish_state", Type: proto.ColumnType_STRING, Description: "Publish State."},
-			{Name: "published_time", Type: proto.ColumnType_STRING, Description: "Published Time."},
+			{Name: "published_time", Type: proto.ColumnType_TIMESTAMP, Description: "Published Time."},
 			{Name: "type", Type: proto.ColumnType_STRING, Description: "Object type."},
 			{Name: "created_by", Type: proto.ColumnType_STRING, Description: "Created By."},
 			{Name: "created_time", Type: proto.ColumnType_TIMESTAMP, Description: "Created Time."},

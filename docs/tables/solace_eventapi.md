@@ -21,12 +21,12 @@ In Event Portal, an event API bundles together the following information:
 select
   e.name as event,
   ev.version as version,
-  ev."displayName" as versionName
+  ev.display_name as versionName
 from
   solace_eventapi e
   join
     solace_eventapi_version ev
-    on ev."eventApiId" = e.id
+    on ev.event_api_id = e.id
 where 
   e.id = '08ctmc2lyp6';
 

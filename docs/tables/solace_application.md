@@ -16,12 +16,12 @@ An application in Event Portal is an object that represents software that produc
 select
   a.name as application,
   av.version as version,
-  av."displayName" as versionName 
+  av.display_name as versionName 
 from
   solace_application a 
   join
     solace_application_version av 
-    on av."applicationId" = a.id 
+    on av.application_id = a.id 
 where
   a.id = 'n5o41x2fh62';
 
@@ -61,7 +61,7 @@ select
   created_time,
   created_by
 from
-  solace_configuration_type
+  solace_application
 where
   created_time >= now() - interval '30' day;
 ```
@@ -70,15 +70,15 @@ where
 
 ```sql
 select
-  id, 
+  id,
   name,
+  application_type,
   broker_type,
-  type,
-  associated_entity_types,
-  changed_by,
-  updated_time
+  custom_attributes,
+  updated_time,
+  changed_by
 from
-  solace_configuration_type
+  solace_application
 where
   updated_time <= now() - interval '10' day;
 ```

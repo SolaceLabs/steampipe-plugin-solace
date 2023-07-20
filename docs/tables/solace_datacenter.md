@@ -36,7 +36,7 @@ select
   oper_state,
   created_time,
   created_by,
-  changed_by,
+  updated_by,
   updated_time
 from
   solace_datacenter
@@ -56,7 +56,7 @@ select
   oper_state,
   created_time,
   created_by,
-  changed_by,
+  updated_by,
   updated_time
 from
   solace_datacenter

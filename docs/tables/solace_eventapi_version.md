@@ -15,13 +15,13 @@ In Event Portal, when you update an Event API, you can update an existing versio
 ```sql
 select
   ev.version as version,
-  ev."displayName" as versionName,
+  ev.display_name as versionName,
   e.name as name 
 from
   solace_eventapi_version ev 
   join
     solace_eventapi e 
-    on ev."eventApiId" = e.id 
+    on ev.event_api_id = e.id 
 where
   ev.id = 'n5o41x2fh62';
 
@@ -30,7 +30,7 @@ where
 select
   id, 
   version, 
-  displayName
+  display_name
 from
   solace_eventapi_version;
 ```
@@ -41,7 +41,7 @@ from
 select
   id, 
   version, 
-  displayName,
+  display_name,
   produced_event_version_ids,
   consumed_event_version_ids,
   state_id,
@@ -61,7 +61,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   produced_event_version_ids,
   consumed_event_version_ids,
   state_id,
@@ -81,7 +81,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   produced_event_version_ids,
   consumed_event_version_ids,
   state_id,

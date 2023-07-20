@@ -16,12 +16,12 @@ In Event Portal, an event is an object that defines the properties that describe
 select
   e.name as event,
   ev.version as version,
-  ev."displayName" as versionName
+  ev.display_name as versionName
 from
   solace_event e
   join
     solace_event_version ev
-    on ev."eventId" = e.id
+    on ev.event_id = e.id
 where 
   e.id = '08ctmc2lyp6'
 

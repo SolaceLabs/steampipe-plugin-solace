@@ -105,8 +105,22 @@ make
 Configure the plugin:
 
 ```
+mkdir -p ~/.steampipe/config
 cp config/* ~/.steampipe/config
 vi ~/.steampipe/config/solace.spc
+```
+
+Check the status of pluging
+```
+steampipe plugin list
+```
+This should give you information on the installed plugins
+```
++---------------------------------------------------+---------+-------------+
+| Installed Plugin                                  | Version | Connections |
++---------------------------------------------------+---------+-------------+
+| hub.steampipe.io/plugins/SolaceLabs/solace@latest | local   | solace      |
++---------------------------------------------------+---------+-------------+
 ```
 
 Try it!

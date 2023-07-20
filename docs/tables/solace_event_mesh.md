@@ -51,13 +51,15 @@ where
 
 ```sql
 select
-  id,
+  id, 
   name,
-  application_type,
+  environment_id,
+  description,
   broker_type,
-  custom_attributes,
   created_time,
-  created_by
+  created_by,
+  changed_by,
+  updated_time
 from
   solace_event_mesh
 where
@@ -70,9 +72,11 @@ where
 select
   id, 
   name,
+  environment_id,
+  description,
   broker_type,
-  type,
-  associated_entity_types,
+  created_time,
+  created_by,
   changed_by,
   updated_time
 from

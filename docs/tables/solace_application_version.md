@@ -15,13 +15,13 @@ In Event Portal, when you update an Application, you can update an existing vers
 ```sql
 select
   av.version as version,
-  av."displayName" as versionName,
+  av.display_name as versionName,
   a.name as application 
 from
   solace_application_version av 
   join
     solace_application a 
-    on av."applicationId" = a.id 
+    on av.application_id = a.id 
 where
   av.id = 'n5o41x2fh62';
 
@@ -30,7 +30,7 @@ where
 select
   id, 
   version, 
-  displayName
+  display_name
 from
   solace_application_version;
 ```
@@ -41,7 +41,7 @@ from
 select
   id, 
   version, 
-  displayName,
+  display_name,
   declared_produced_event_version_ids,
   declared_consumed_event_version_ids,
   type,
@@ -59,7 +59,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   declared_produced_event_version_ids,
   declared_consumed_event_version_ids,
   type,
@@ -77,7 +77,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   declared_produced_event_version_ids,
   declared_consumed_event_version_ids,
   type,

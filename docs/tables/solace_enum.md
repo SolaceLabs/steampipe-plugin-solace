@@ -12,21 +12,6 @@ In Event Portal, an enumeration is a bounded variable with a limited set of lite
 
 ### List of all enums
 
-```sql
-select
-  e.name as event,
-  ev.version as version,
-  ev."displayName" as versionName
-from
-  solace_enum e
-  join
-    solace_enum_version ev
-    on ev."enumId" = e.id
-where 
-  e.id = '08ctmc2lyp6'
-
--- or a simplified version
-
 select
   id, 
   name,

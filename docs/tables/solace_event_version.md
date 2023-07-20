@@ -15,13 +15,13 @@ In Event Portal, when you update an Event, you can update an existing version or
 ```sql
 select
   ev.version as version,
-  ev."displayName" as versionName,
+  ev.display_name as versionName,
   e.name as name 
 from
   solace_event_version ev 
   join
     solace_event e 
-    on ev."enumId" = e.id 
+    on ev.enum_id = e.id 
 where
   ev.id = 'n5o41x2fh62';
 
@@ -30,7 +30,7 @@ where
 select
   id, 
   version, 
-  displayName
+  display_name
 from
   solace_event_version;
 ```
@@ -41,7 +41,7 @@ from
 select
   id, 
   version, 
-  displayName,
+  display_name,
   declared_producing_application_version_ids,
   declared_consuming_application_version_ids,
   producing_event_api_version_ids,
@@ -62,7 +62,7 @@ where
 select
   id, 
   version, 
-  displayName,
+  display_name,
   declared_producing_application_version_ids,
   declared_consuming_application_version_ids,
   producing_event_api_version_ids,
@@ -83,7 +83,7 @@ where
 select
   id,
   version, 
-  displayName,
+  display_name,
   declared_producing_application_version_ids,
   declared_consuming_application_version_ids,
   producing_event_api_version_ids,

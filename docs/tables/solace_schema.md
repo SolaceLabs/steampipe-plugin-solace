@@ -16,12 +16,12 @@ In Event Portal, a schema defines the payload of an event. Producers and consume
 select
   s.name as schema,
   sv.version as version,
-  sv."displayName" as versionName
+  sv.display_name as versionName
 from
   solace_schema s
   join
     solace_schema_version sv
-    on sv."schemaId" = s.id
+    on sv.schema_id = s.id
 where 
   s.id = '08ctmc2lyp6';
 
