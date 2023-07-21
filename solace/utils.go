@@ -32,7 +32,7 @@ func NewSolaceClient(c *plugin.Connection) (*solace.Client, error) {
 	}
 
 	if cfg.ApiUrl != nil {
-		apiURL = *cfg.ApiToken
+		apiURL = *cfg.ApiUrl
 	}
 
 	if apiToken == "" {
@@ -45,7 +45,7 @@ func NewSolaceClient(c *plugin.Connection) (*solace.Client, error) {
 		return nil, errors.New("api_url must be configured")
 	}
 
-	var config, err = solace.NewConfig(cfg.ApiToken, cfg.ApiUrl)
+	var config, err = solace.NewConfig(&apiToken, &apiURL)
 	if err != nil {
 		return nil, err
 	}
