@@ -21,7 +21,7 @@ from
   solace_schema_version sv 
   join
     solace_schema s 
-    on sv.enum_id = s.id 
+    on sv.schema_id = s.id 
 where
   sv.id = 'n5o41x2fh62';
 
