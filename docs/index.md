@@ -43,7 +43,7 @@ from
 
 ## Documentation
 
-- **[Table definitions & examples →](https://hub.steampipe.io/plugins/solacelabs/solace/tables)**
+- **[Table definitions & examples →](/plugins/solacelabs/solace/tables)**
 
 ## Get started
 
