@@ -85,7 +85,7 @@ connection "solace" {
 Alternatively, you can also use the standard Solace environment variables to obtain credentials **only if other arguments (`api_token` and `api_url`) are not specified** in the connection:
 
 ```sh
-export SOLACE_API_TOKEN=API_TOKEN
+export SOLACE_API_TOKEN=XXXXXXXXX
 export SOLACE_API_URL=https://api.solace.cloud/
 ```
 

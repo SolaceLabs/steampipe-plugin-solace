@@ -6,10 +6,10 @@
 
 Use SQL to query configurations, consumers, events and more from Solace.
 
-- **[Get started →](https://hub.steampipe.io/plugins/SolaceLabs/solace)**
-- Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/SolaceLabs/solace/tables)
+- **[Get started →](https://hub.steampipe.io/plugins/solacelabs/solace)**
+- Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/solacelabs/solace/tables)
 - Community: [Slack Channel](https://steampipe.io/community/join)
-- Get involved: [Issues](https://github.com/SolaceLabs/steampipe-plugin-solace/issues)
+- Get involved: [Issues](https://github.com/solacelabs/steampipe-plugin-solace/issues)
 
 ## Overview
 
@@ -29,7 +29,7 @@ Download and install the latest Solace plugin:
 steampipe plugin install SolaceLabs/solace
 ```
 
-Configure your [credentials](https://hub.steampipe.io/plugins/SolaceLabs/solace#credentials) and [config file](https://hub.steampipe.io/plugins/SolaceLabs/solace#configuration).
+Configure your [credentials](https://hub.steampipe.io/plugins/solacelabs/solace#credentials) and [config file](https://hub.steampipe.io/plugins/solacelabs/solace#configuration).
 
 Configure your account details in `~/.steampipe/config/solace.spc`:
 
@@ -47,7 +47,7 @@ connection "solace" {
 Or through environment variables:
 
 ```sh
-export SOLACE_API_TOKEN=eABCGciOiJSUzI1NiIsImtpMQITm1hYXNfcHJvZF8yMDIwMDMyNiIsInR5cCI6Ikp123J9
+export SOLACE_API_TOKEN=XXXXXXXXX
 export SOLACE_API_URL=https://api.solace.cloud/
 ```
 
