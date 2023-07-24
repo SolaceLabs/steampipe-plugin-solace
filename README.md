@@ -6,7 +6,7 @@
 
 Use SQL to query configurations, consumers, events and more from Solace.
 
-- **[Get started →](https://hub.steampipe.io/plugins/solacelabs/solace)**
+- **[Get started →](https://hub.steampipe.io/plugins/solacelabs/solace/tables)**
 - Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/solacelabs/solace/tables)
 - Community: [Slack Channel](https://steampipe.io/community/join)
 - Get involved: [Issues](https://github.com/solacelabs/steampipe-plugin-solace/issues)
