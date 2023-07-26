@@ -10,7 +10,7 @@ og_description: "Query Solace PubSub+ Cloud with SQL! Open source CLI. No DB req
 og_image: "/images/plugins/SolaceLabs/solace-social-graphic.png"
 ---
 
-# Solace Cloud + Steampipe
+# Solace PubSub+ Cloud + Steampipe
 
 [Solace PubSub+](https://www.solace.com) is a cloud-based messaging and event streaming service provided by Solace. It offers a scalable and robust messaging infrastructure that enables real-time data movement and event-driven architecture in cloud and hybrid cloud environments.
 
