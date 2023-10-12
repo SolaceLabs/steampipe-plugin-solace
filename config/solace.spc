@@ -1,5 +1,5 @@
 connection "solace" {
-  plugin = "SolaceLabs/solace"
+  plugin = "solacelabs/solace"
 
   # Get your API key from https://console.solace.cloud/api-tokens
   # This can also be set via the `SOLACE_API_TOKEN` environment variable.
