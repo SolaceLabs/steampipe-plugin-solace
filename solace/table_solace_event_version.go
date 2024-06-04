@@ -32,6 +32,8 @@ func tableEventVersion(_ context.Context) *plugin.Table {
 			{Name: "producing_event_api_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("ProducingEventApiVersionIdsAsString"), Description: "Producing Event API Version Ids."},
 			{Name: "consuming_event_api_version_ids", Type: proto.ColumnType_STRING, Transform: transform.FromField("ConsumingEventApiVersionIdsAsString"), Description: "Consuming Event API Version Ids."},
 			{Name: "attracting_application_version_ids", Type: proto.ColumnType_JSON, Transform: transform.FromField("AttractingApplicationVersionIdsAsString"), Description: "Attracting Application Version Ids."},
+			{Name: "schema_version_id", Type: proto.ColumnType_STRING, Description: "Schema Version Id."},
+			{Name: "schema_primitive_type", Type: proto.ColumnType_STRING, Description: "Schema Primitive Type."},
 			{Name: "delivery_descriptor", Type: proto.ColumnType_JSON, Description: "Delivery Descriptor."},
 			{Name: "state_id", Type: proto.ColumnType_STRING, Description: "State Id."},
 			{Name: "custom_attributes", Type: proto.ColumnType_JSON, Description: "Custom Attributes."},
