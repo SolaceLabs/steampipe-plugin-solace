@@ -1,0 +1,25 @@
+version: 3
+
+project:
+  locator: SolaceLabs_steampipe-plugin-solace
+  id: SolaceLabs_steampipe-plugin-solace
+  name: steampipe-plugin-solace
+  teams: []
+  labels:
+    - go
+
+vendoredDependencies:
+  forceRescans: false
+  scanMethod: CLILicenseScan
+  licenseScanPathFilters:
+    exclude:
+      - "./.git"
+      - "./.github"
+
+paths:
+  exclude:
+    - ./.git
+    - ./.github
+
+telemetry:
+  scope: full
